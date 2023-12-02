@@ -42,7 +42,7 @@ func Annuity() (err error) {
 
 	// get detail installment items
 	effectiveOutstanding := Base
-	for i := 1; i <= int(Duration); i++ {
+	for i := 1; i < int(Duration); i++ {
 		item := InstallmentItems{}
 		item.SequenceNumber = int32(i)
 		item.NominalInstallment = Installment
@@ -54,6 +54,16 @@ func Annuity() (err error) {
 
 		effectiveOutstanding -= item.PrincipalAmount
 	}
+
+	// balancing last detail item
+	item := InstallmentItems{}
+	item.SequenceNumber = int32(Duration)
+	item.NominalInstallment = Installment
+	item.PrincipalAmount = roundFloat(effectiveOutstanding, 2)
+	item.ProfitAmount = roundFloat(Installment-effectiveOutstanding, 2)
+	item.Oustanding = roundFloat(effectiveOutstanding, 2)
+	item.PercentageRate = prate
+	Items = append(Items, item)
 
 	return
 }
