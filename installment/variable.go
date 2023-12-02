@@ -1,13 +1,9 @@
 package installment
 
 var (
-	Duration    int64
-	Base        float64
-	Rate        float64
-	Installment float64
-	Margin      float64
-	PctRate     float64
-	Items       []InstallmentItems
+	Duration int64
+	Base     float64
+	Rate     float64
 )
 
 var Pricing = struct {
