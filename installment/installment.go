@@ -11,9 +11,10 @@ func roundFloat(val float64, precision uint) float64 {
 }
 
 func RunSimulation(params SimulationParams) (results InstallmentResults, err error) {
-	Duration = params.Duration
 	Base = params.LoanAmount
 	Rate = params.EffectiveRate
+	Duration = params.Duration
+	Items = []InstallmentItems{}
 
 	switch params.Pricing {
 	case Pricing.Annuity: // effective
