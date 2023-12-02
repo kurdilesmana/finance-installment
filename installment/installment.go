@@ -14,11 +14,10 @@ func RunSimulation(params SimulationParams) (results InstallmentResults, err err
 	Base = params.LoanAmount
 	Rate = params.EffectiveRate
 	Duration = params.Duration
-	Items = nil
 
 	switch params.Pricing {
 	case Pricing.Annuity: // effective
-		err = Annuity()
+		Items, err = Annuity()
 	default:
 		remark := fmt.Sprintf("Pricing %s under development.", PricingDesc[params.Pricing])
 		err = fmt.Errorf(remark)
@@ -31,7 +30,7 @@ func RunSimulation(params SimulationParams) (results InstallmentResults, err err
 	return
 }
 
-func Annuity() (err error) {
+func Annuity() (ItemDetails []InstallmentItems, err error) {
 	prate := Rate / 100
 	mvalue := Base * prate / 12
 	mrate := prate / 12
@@ -51,7 +50,7 @@ func Annuity() (err error) {
 		item.PrincipalAmount = roundFloat(Installment-item.ProfitAmount, 2)
 		item.Oustanding = roundFloat(effectiveOutstanding, 2)
 		item.PercentageRate = prate
-		Items = append(Items, item)
+		ItemDetails = append(ItemDetails, item)
 
 		effectiveOutstanding -= item.PrincipalAmount
 	}
@@ -64,7 +63,7 @@ func Annuity() (err error) {
 	item.ProfitAmount = roundFloat(Installment-effectiveOutstanding, 2)
 	item.Oustanding = roundFloat(effectiveOutstanding, 2)
 	item.PercentageRate = prate
-	Items = append(Items, item)
+	ItemDetails = append(ItemDetails, item)
 
 	return
 }
