@@ -14,7 +14,7 @@ func RunSimulation(params SimulationParams) (results InstallmentResults, err err
 	Base = params.LoanAmount
 	Rate = params.EffectiveRate
 	Duration = params.Duration
-	Items = []InstallmentItems{}
+	Items = nil
 
 	switch params.Pricing {
 	case Pricing.Annuity: // effective
