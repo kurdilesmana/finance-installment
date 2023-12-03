@@ -2,8 +2,6 @@
 Calculator installment for loan simulation
 
 ## Features 
-v.1.0.0
-
 - Annuity Pricing
 Calculation loan with pricing model annuity.
 
