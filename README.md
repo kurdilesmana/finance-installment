@@ -2,6 +2,7 @@
 Calculator installment for loan simulation
 
 ## Features 
+
 - Annuity Pricing
 Calculation loan with pricing model annuity.
 
@@ -28,7 +29,7 @@ import (
 
 func main() {
 	Parameter := installment.SimulationParams{
-		Pricing:       installment.Pricing.Flat,
+		Pricing:       installment.Pricing.Annuity,
 		LoanAmount:    10000000,
 		Duration:      12,
 		EffectiveRate: 13,
